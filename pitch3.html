@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Football Pitch Prototype</title>
+    <style>
+        #footballPitch td {
+            width: 20px;
+            height: 10px;
+            border: 1px solid #000;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        #footballPitchWrapper {
+            position: relative;
+            background: url('pitch.jpeg');
+            background-size: cover;
+        }
+
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('hall-of-fame.jpg');
+            background-size: cover;
+            opacity: 0.15;
+        }
+
+        .selected {
+            background-color: #0f0;
+        }
+
+        .highlighted {
+            background-color: black;
+        }
+    </style>
+    <script>
+        var pitch, cart, resetBtn, userSelections;
+        var highlightedBlocks = [];
+        var users = [
+            // Italian Names
+            "Giovanni", "Maria", "Giuseppe", "Sofia", "Luca", "Francesca", "Antonio", "Rosa",
+            // Brazilian Names
+            "Luiz", "Ana", "José", "Beatriz", "Gabriel", "Camila", "João", "Juliana",
+            // Korean Names
+            "Ji-hoon", "Ji-eun", "Min-jun", "Soo-min"
+        ];
+
+        window.onload = function () {
+            pitch = document.getElementById('footballPitch');
+            cart = document.getElementById('cart');
+            resetBtn = document.getElementById('resetBtn');
+            userSelections = document.getElementById('userSelections');
+
+            for (var y = 0; y < 72; y++) {
+                var row = document.createElement('tr');
+                for (var x = 0; x < 120; x++) {
+                    var cell = document.createElement('td');
+                    cell.dataset.position = x + ',' + y;
+                    cell.onclick = function () {
+                        if (!this.classList.contains('selected')) {
+                            this.classList.add('selected');
+                            var item = document.createElement('li');
+                            item.textContent = 'Block at ' + this.dataset.position;
+                            cart.appendChild(item);
+                        }
+                    };
+                    row.appendChild(cell);
+                }
+                pitch.appendChild(row);
+            }
+
+            resetBtn.onclick = function () {
+                var selectedBlocks = document.querySelectorAll('.selected');
+                selectedBlocks.forEach(function (block) {
+                    block.classList.remove('selected');
+                });
+                cart.innerHTML = '';
+            };
+
+            setInterval(randomHighlight, getRandomElement([500, 1000, 3000]));
+        };
+
+        function randomHighlight() {
+            // Clear existing highlights
+            // highlightedBlocks.forEach(function(block) {
+            //     block.classList.remove('highlighted');
+            // });
+            // highlightedBlocks = [];
+
+            var allBlocks = Array.from(pitch.getElementsByTagName('td'));
+            var goalBlocks = allBlocks.filter(block => {
+                var x = parseInt(block.dataset.position.split(',')[0]);
+                return x < 9 || x >= 105; // 18-yard boxes
+            });
+            var otherBlocks = allBlocks.filter(block => !goalBlocks.includes(block));
+
+            var numHighlights = getRandomElement([1, 2, 3]);
+            for (var i = 0; i < numHighlights; i++) {
+                var blocks = Math.random() < 0.8 ? goalBlocks : otherBlocks; // 80% chance to select from goal areas
+                var index = Math.floor(Math.random() * blocks.length);
+                var block = blocks.splice(index, 1)[0]; // Remove the selected block to avoid duplicates
+                block.classList.add('highlighted');
+                highlightedBlocks.push(block);
+            }
+
+            // Display user selections
+            highlightedBlocks.forEach(function (block) {
+                var user = getRandomElement(users);
+                var p = document.createElement('p');
+                p.textContent = user + ' just reserved block at ' + block.dataset.position;
+                userSelections.appendChild(p);
+            });
+        }
+
+        function getRandomElement(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+    </script>
+</head>
+
+<body>
+    <button id="resetBtn">Reset</button>
+    <div id="footballPitchWrapper">
+        <div id="overlay"></div>
+        <table id="footballPitch"></table>
+    </div>
+    <h2>Cart</h2>
+    <ul id="cart"></ul>
+    <h2>User Selections</h2>
+    <div id="userSelections"></div>
+</body>
+
+</html>
