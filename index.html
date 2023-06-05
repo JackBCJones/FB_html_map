@@ -8,6 +8,7 @@
     <title>Document</title>
 </head>
 <body>
+  <h1>Manchester City vs Norwich City</h1>
 
     <table id="field" class="field"></table>
     <!-- <h1>Start Time:</h1> -->
@@ -37,8 +38,12 @@
           <option value="foul">foul</option>
         </select>
     </div>
-    <button id="pauseButton">Pause</button>
-
+    <button id="pauseResumeButton">Pause</button>
+    <div id="sliderContainer">
+      <label for="delaySlider">Delay:</label>
+      <input type="range" id="delaySlider" min="100" max="2000" step="10">
+      <span id="delayLabel"></span>
+    </div>
 
     <script src="./events.js"></script>
 </body>
