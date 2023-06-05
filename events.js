@@ -1,4 +1,3 @@
-// ------------------------------------------------------------------------------------------------
 const field = document.getElementById('field');
 const nameFilter = document.getElementById('nameFilter');
 const teamFilter = document.getElementById('teamFilter');
