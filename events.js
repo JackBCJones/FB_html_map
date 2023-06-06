@@ -4,7 +4,7 @@ const teamFilter = document.getElementById('teamFilter');
 const timestampDisplay = document.getElementById('timestampDisplay');
 
 const userCells = []; // Array to store user's assigned cells
-
+window.addEventListener('load', function() {});
 fetch('data.json')
   .then(response => response.json())
   .then(events => {
@@ -79,9 +79,23 @@ fetch('data.json')
               if (userCells.includes(`${x},${y}`)) {
                 cell.classList.add('gold-cell'); // Add gold border to user's cells
               }
+
+              if (event.names.includes("goal")) {
+                console.log("GOAL")
+                var popup = document.getElementById('popup');
+                popup.style.display = 'block';
+                
+                var closeButton = document.getElementById('closeButton');
+                    closeButton.addEventListener('click', function() {
+                        popup.style.display = 'none';
+                    });
+              }
               if (previousCell) {
                 previousCell.classList.remove('black-cell');
+                // var popup = document.getElementById('popup');
+                // popup.style.display = 'none';
               }
+              
               previousCell = cell;
               timestampDisplay.textContent = event.timestamp || '';
             }, delay * events.indexOf(event)); 

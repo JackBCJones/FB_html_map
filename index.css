@@ -1,10 +1,50 @@
 body{
     background-color: green;
+    display: flex;
+    flex-direction: column;
+
 }
 h1 {
   font-size: 100px
 }
+.popup {
+  display: none; /* Hide the pop-up by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 9999; /* Ensure it's on top of other elements */
+}
 
+.popup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background-color: #fff; */
+  padding: 20px;
+}
+
+.popup-content img {
+  width: 1800px;
+  height: 1600px;
+}
+
+#closeButton {
+  height: 100px;
+  width: 200px;
+  font-size: 50px;
+}
+.filters {
+  font-size: 70px;
+  height: 200px;
+  width: 500px;
+}
+.delay {
+  margin-left: 700px;
+}
 #field {
     /* margin-left: 14%; */
     /* margin-top: 2%; */

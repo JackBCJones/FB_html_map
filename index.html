@@ -9,21 +9,26 @@
 </head>
 <body>
   <h1>Manchester City vs Norwich City</h1>
-
+  <div id="popup" class="popup">
+    <div class="popup-content">
+        <img src="7nvo3h.gif" alt="GIF">
+        <button id="closeButton">Close</button>
+    </div>
+  </div>
     <table id="field" class="field"></table>
     <!-- <h1>Start Time:</h1> -->
     <h1 id="startTimeDisplay"></h1>
     <h1 id="timestampDisplay"></h1>
     <div class="filters">
         <label for="teamFilter">Filter by Team:</label>
-        <select id="teamFilter">
+        <select id="teamFilter" class="filters">
           <option value="">All Teams</option>
           <option value="43">Home</option>
           <option value="45">Away</option>
         </select>
     
         <label for="nameFilter">Filter by Event:</label>
-        <select id="nameFilter">
+        <select id="nameFilter" class="filters">
         <option value="">All Events</option>
           <option value="pass">pass</option>
           <option value="goal">goal</option>
@@ -38,10 +43,10 @@
           <option value="foul">foul</option>
         </select>
     </div>
-    <button id="pauseResumeButton">Pause</button>
-    <div id="sliderContainer">
+    <!-- <button id="pauseResumeButton">Pause</button> -->
+    <div id="sliderContainer" class="filters delay">
       <label for="delaySlider">Delay:</label>
-      <input type="range" id="delaySlider" min="100" max="2000" step="10">
+      <input class="filters" type="range" id="delaySlider" min="100" max="2000" step="10">
       <span id="delayLabel"></span>
     </div>
 
