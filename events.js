@@ -5,7 +5,7 @@ const timestampDisplay = document.getElementById('timestampDisplay');
 
 const userCells = []; // Array to store user's assigned cells
 window.addEventListener('load', function() {});
-fetch('data.json')
+fetch('ACMilan_Verona.json')
   .then(response => response.json())
   .then(events => {
 
@@ -19,7 +19,7 @@ fetch('data.json')
       field.innerHTML = '';
 
       // Create the table rows and cells
-      let firstEventTimestamp = null;
+      // let firstEventTimestamp = null;
       let previousCell = null;
       for (let y = 74; y >= 0; y--) {
         const row = field.insertRow();
@@ -73,11 +73,25 @@ fetch('data.json')
           // Add user cells and show where events occurred 
           // and if event happened on user show set cell to gold
 
+          // if ((58 > x > 56) && (38 > y > 36) && event && (event.score !==0)) {
+          //   const otherCell = table.rows[y + 1].cells[x + 1]
+          //   otherCell.classList.add('black-cell');
+          //   console.log(cell)
+
+          //   if (userCells.includes(`${x},${y}`)) {
+
+          //     cell.classList.add('gold-cell'); // Add gold border to user's cells
+          //   }
+          // }
+
+
           if (event && event.score !== 0) {
             setTimeout(() => {
               cell.classList.add('black-cell');
               if (userCells.includes(`${x},${y}`)) {
                 cell.classList.add('gold-cell'); // Add gold border to user's cells
+                if (x == 57 && y == 37) {
+                }
               }
 
               if (event.names.includes("goal")) {
@@ -114,8 +128,8 @@ fetch('data.json')
       userCells.length = 0; // Clear the user cells array
 
       // Assign 3 specific cells
-      userCells.push('105,40');
-      userCells.push('109,37');
+      userCells.push('101,37');
+      userCells.push('101,33');
       userCells.push('57,37');
 
       // Assign 17 random cells
@@ -159,7 +173,7 @@ fetch('data.json')
         const targetCell = field.rows[74 - y].cells[x];
         targetCell.classList.add('gold-border'); // Add gold border to user's cells
       });
-    }, 3000); // Adjust the delay value as needed
+    }, 50); // Adjust the delay value as needed
       assignUserCells();
 
       
