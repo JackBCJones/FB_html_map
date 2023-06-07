@@ -15,6 +15,11 @@
         <button id="closeButton">Close</button>
     </div>
   </div>
+  <div id="sliderContainer" class="filters delay">
+    <label for="delaySlider">Delay:</label>
+    <input class="filters" type="range" id="delaySlider" min="100" max="2000" step="10">
+    <span id="delayLabel"></span>
+  </div>
     <table id="field" class="field"></table>
     <!-- <h1>Start Time:</h1> -->
     <h1 id="startTimeDisplay"></h1>
@@ -44,10 +49,11 @@
         </select>
     </div>
     <!-- <button id="pauseResumeButton">Pause</button> -->
-    <div id="sliderContainer" class="filters delay">
-      <label for="delaySlider">Delay:</label>
-      <input class="filters" type="range" id="delaySlider" min="100" max="2000" step="10">
-      <span id="delayLabel"></span>
+    
+
+    <div class="historicalMoment">
+      <p>Historical Moment</p>
+      <img src="image.png" alt="Historical moment"/>
     </div>
 
     <script src="./events.js"></script>

@@ -27,7 +27,7 @@ fetch('data.json')
         for (let x = 0; x <= 115; x++) {
           const cell = row.insertCell();
           cell.className = 'cell';
-          cell.textContent = `${x},${y}`; // Displaying coordinates
+          // cell.textContent = `${x},${y}`; // Displaying coordinates
 
           // Assign cells to the user
 
