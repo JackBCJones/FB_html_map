@@ -103,9 +103,9 @@ h1 {
     /* z-index: 5; */
   }
 
-  .cell.user-block {
-    background-color: red;
-  }
+  /* .cell {
+    border: 1px solid black;
+  } */
 
   .cell.user-block-scored {
     background-color: gold;
