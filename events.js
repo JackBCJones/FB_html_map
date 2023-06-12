@@ -2,6 +2,7 @@ const field = document.getElementById('field');
 const nameFilter = document.getElementById('nameFilter');
 const teamFilter = document.getElementById('teamFilter');
 const timestampDisplay = document.getElementById('timestampDisplay');
+const eventDisplay = document.getElementById('eventDisplay');
 
 const userCells = []; // Array to store user's assigned cells
 window.addEventListener('load', function() {});
@@ -13,7 +14,7 @@ fetch('ACMilan_Verona.json')
     const filterEvents = () => {
       // const selectedName = nameFilter.value;
       // const selectedTeamId = teamFilter.value;
-      let delay = delaySlider.value; // Default delay value
+      // let delay = delaySlider.value; // Default delay value
 
       // Clear the table
       field.innerHTML = '';
@@ -29,11 +30,13 @@ fetch('ACMilan_Verona.json')
         const row = field.insertRow();
 
         for (let x = 0; x <= 115; x++) {
-          const cell = row.insertCell();
-          cell.className = 'cell';
-          // cell.textContent = `${x},${y}`; // Displaying coordinates
 
-          // Assign cells to the user
+          (function(x, y) {
+            const cell = row.insertCell();
+            cell.className = 'cell';
+            cell.id = `${x}-${y}`;
+          
+          
 
           if (userCells.includes(`${x},${y}`)) {
             cell.classList.add('user-cell');
@@ -73,25 +76,38 @@ fetch('ACMilan_Verona.json')
           }
 
 
-          if (event && event.score !== 0) {
-            const eventTime = (event.timeMin * 60 + event.timeSec)
-            const realTime = (eventTime - previousEventTime);
+          if (event) {
+            // const eventTime = (event.timeMin * 60 + event.timeSec)
+            // const realTime = (eventTime - previousEventTime);
             setTimeout(() => {
               
               // console.log((eventTime - previousEventTime))
               cell.classList.add('black-cell');
+              // cell.textContent = "⚽️"
               if (userCells.includes(`${x},${y}`)) {
                 cell.classList.add('gold-cell'); // Add gold border to user's cells
               }
+              if (x == 57 && y == 37) {
+                const middleCell1 = document.getElementById('57-37');
+                const middleCell2 = document.getElementById('56-37');
+                const middleCell3 = document.getElementById('57-38');
+                const middleCell4 = document.getElementById('56-38');
+                middleCell1.classList.add('gold-cell');
+                middleCell2.classList.add('gold-cell');
+                middleCell3.classList.add('gold-cell');
+                middleCell4.classList.add('gold-cell');
+              }
               if (previousCell) {
                 previousCell.classList.remove('black-cell');
+                // previousCell.textContent = ""
               }
               
               previousCell = cell;
-              console.log(`Event time: ${event.timeMin} Mins ${event.timeSec} Seconds`);
+              // console.log(`Event time: ${event.timeMin} Mins ${event.timeSec} Seconds`);
               timestampDisplay.textContent = (`${event.timeMin} Mins ${event.timeSec} Seconds`) || '';
-              previousEventTime = eventTime;
-            }, delay * events.indexOf(event)); 
+              eventDisplay.textContent = (`Event type: ${event.names}`)
+              // previousEventTime = eventTime;
+            }, 400 * events.indexOf(event)); 
 
           } else {
             if (previousCell) {
@@ -99,9 +115,13 @@ fetch('ACMilan_Verona.json')
               previousCell = null;
             }
           }
+        })(x, y)
         }
       }
     };
+        
+        
+  
 
     // Function to assign user cells
     const assignUserCells = () => {
@@ -139,7 +159,7 @@ fetch('ACMilan_Verona.json')
     };
 
     // Update the delay value based on the slider position
-    delaySlider.addEventListener('change', filterEvents);
+    // delaySlider.addEventListener('change', filterEvents);
 
     // Call the filter function initially to display all events
     filterEvents();
@@ -147,10 +167,6 @@ fetch('ACMilan_Verona.json')
     // Assign user cells initially
     assignUserCells();
       
-  })   
+  
+  }) 
   .catch(error => console.log(error));
-
-  // ------------------------------------------------------------------------------
-
-  
-  
